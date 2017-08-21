@@ -1,0 +1,8 @@
+---
+# vars file for ansible-simple-docker-compose
+image: mprokopov/neovo
+name: neovo
+path: /home/core/neovo
+virtual_host: neovo.kiev.ua,www.neovo.kiev.ua
+database: neovo
+database_password: root

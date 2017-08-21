@@ -1,0 +1,17 @@
+version: "2"
+services:
+  db:
+    image: mysql:5
+    environment:
+      - MYSQL_ROOT_PASSWORD={{database_password}}
+      - MYSQL_DATABASE={{database}}
+      - MYSQL_CHARSET=cp1251
+
+  parser:
+    image: {{image}}
+    environment:
+      - VIRTUAL_HOST={{virtual_host}}
+      - LETSENCRYPT_HOST={{virtual_host}}
+      - LETSENCRYPT_EMAIL=mprokopov@gmail.com
+    links:
+      - db

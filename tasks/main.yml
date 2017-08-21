@@ -1,0 +1,21 @@
+---
+# tasks file for ansible-simple-docker-compose
+- name: creates project directory
+  file: path="{{path}}" state=directory
+  tags: deploy
+
+- name: copy docker-compose.yml
+  template: src=files/docker-compose.yml.j2 dest="{{path}}/docker-compose.yml"
+  tags: deploy
+
+- name: copy sql and assets
+  with_items:
+    - sql
+  copy: src="./{{item}}" dest="{{path}}/{{item}}" mode=0644
+
+- name: lauch docker-compose
+  docker_service:
+    project_name: "{{name}}"
+    project_src: "{{path}}"
+    pull: yes
+    state: present
